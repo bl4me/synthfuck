@@ -1,0 +1,295 @@
+/* Auto Dungeon Synth Remover - Styles */
+
+/* Smooth hiding animation for removed albums */
+.dungeon-synth-hidden {
+    opacity: 0 !important;
+    transform: scale(0.95) !important;
+    transition: all 0.4s ease-out !important;
+    pointer-events: none !important;
+    margin: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+}
+
+/* Fade out animation for albums being processed */
+.dungeon-synth-checking {
+    opacity: 0.6 !important;
+    transition: opacity 0.3s ease !important;
+    position: relative !important;
+}
+
+/* Loading indicator for albums being checked */
+.dungeon-synth-checking::after {
+    content: "🔍" !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    color: white !important;
+    padding: 8px 12px !important;
+    border-radius: 20px !important;
+    font-size: 14px !important;
+    z-index: 1000 !important;
+    animation: pulse 1.5s ease-in-out infinite !important;
+}
+
+/* Pulse animation for checking indicator */
+@keyframes pulse {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Mark processed albums with a subtle indicator */
+.dungeon-synth-processed {
+    position: relative !important;
+}
+
+.dungeon-synth-processed::before {
+    content: "✓" !important;
+    position: absolute !important;
+    top: 5px !important;
+    right: 5px !important;
+    background: rgba(76, 175, 80, 0.9) !important;
+    color: white !important;
+    border-radius: 50% !important;
+    width: 16px !important;
+    height: 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 10px !important;
+    font-weight: bold !important;
+    z-index: 100 !important;
+    opacity: 0.8 !important;
+}
+
+/* Removed album indicator (briefly shown before hiding) */
+.dungeon-synth-removed {
+    position: relative !important;
+    background: rgba(244, 67, 54, 0.1) !important;
+    border: 2px solid rgba(244, 67, 54, 0.3) !important;
+    border-radius: 4px !important;
+}
+
+.dungeon-synth-removed::after {
+    content: "💀 Dungeon Synth Removed" !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    background: rgba(244, 67, 54, 0.9) !important;
+    color: white !important;
+    padding: 8px 16px !important;
+    border-radius: 20px !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    z-index: 1000 !important;
+    animation: fadeInOut 2s ease-in-out !important;
+}
+
+/* Fade in and out animation for removal notification */
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    80% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+}
+
+/* Status indicator for extension activity */
+.dungeon-synth-active {
+    position: fixed !important;
+    top: 10px !important;
+    right: 10px !important;
+    background: rgba(255, 107, 53, 0.9) !important;
+    color: white !important;
+    padding: 6px 12px !important;
+    border-radius: 20px !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    z-index: 10000 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    animation: slideIn 0.3s ease-out !important;
+}
+
+/* Slide in animation for status indicator */
+@keyframes slideIn {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Processing stats overlay */
+.dungeon-synth-stats {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    color: white !important;
+    padding: 12px 16px !important;
+    border-radius: 8px !important;
+    font-size: 11px !important;
+    font-family: monospace !important;
+    z-index: 10000 !important;
+    max-width: 200px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    opacity: 0 !important;
+    transform: translateY(20px) !important;
+    transition: all 0.3s ease !important;
+}
+
+.dungeon-synth-stats.show {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+.dungeon-synth-stats-line {
+    margin: 2px 0 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+}
+
+.dungeon-synth-stats-label {
+    opacity: 0.8 !important;
+}
+
+.dungeon-synth-stats-value {
+    font-weight: bold !important;
+    color: #ff6b35 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .dungeon-synth-checking::after {
+        font-size: 12px !important;
+        padding: 6px 10px !important;
+    }
+
+    .dungeon-synth-removed::after {
+        font-size: 10px !important;
+        padding: 6px 12px !important;
+    }
+
+    .dungeon-synth-active {
+        top: 5px !important;
+        right: 5px !important;
+        padding: 4px 8px !important;
+        font-size: 10px !important;
+    }
+
+    .dungeon-synth-stats {
+        bottom: 10px !important;
+        right: 10px !important;
+        padding: 8px 12px !important;
+        font-size: 10px !important;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .dungeon-synth-checking::after {
+        background: rgba(255, 255, 255, 0.9) !important;
+        color: black !important;
+    }
+
+    .dungeon-synth-removed {
+        background: rgba(244, 67, 54, 0.2) !important;
+        border-color: rgba(244, 67, 54, 0.5) !important;
+    }
+
+    .dungeon-synth-active {
+        background: rgba(255, 138, 101, 0.9) !important;
+    }
+
+    .dungeon-synth-stats {
+        background: rgba(255, 255, 255, 0.9) !important;
+        color: black !important;
+    }
+
+    .dungeon-synth-stats-value {
+        color: #e55325 !important;
+    }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .dungeon-synth-hidden {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    .dungeon-synth-checking::after {
+        animation: none !important;
+    }
+
+    .dungeon-synth-removed::after {
+        animation: none !important;
+    }
+
+    .dungeon-synth-active {
+        animation: none !important;
+    }
+
+    .dungeon-synth-stats {
+        transition: none !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .dungeon-synth-checking::after {
+        background: black !important;
+        color: white !important;
+        border: 2px solid white !important;
+    }
+
+    .dungeon-synth-removed {
+        border-width: 3px !important;
+    }
+
+    .dungeon-synth-removed::after {
+        background: black !important;
+        color: white !important;
+        border: 2px solid white !important;
+    }
+
+    .dungeon-synth-active {
+        background: black !important;
+        color: white !important;
+        border: 2px solid white !important;
+    }
+
+    .dungeon-synth-stats {
+        background: black !important;
+        color: white !important;
+        border: 2px solid white !important;
+    }
+}

@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Link Finder</title>
+        <style>
+            body {
+                width: 400px;
+                min-height: 300px;
+                margin: 0;
+                padding: 0;
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    sans-serif;
+                background: #f9f9f9;
+            }
+
+            .header {
+                background: #ff6b35;
+                color: white;
+                padding: 16px;
+                text-align: center;
+                font-weight: 600;
+                font-size: 18px;
+            }
+
+            .stats {
+                display: flex;
+                justify-content: space-around;
+                padding: 12px;
+                background: white;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .stat-item {
+                text-align: center;
+            }
+
+            .stat-number {
+                font-size: 24px;
+                font-weight: bold;
+                color: #ff6b35;
+            }
+
+            .stat-label {
+                font-size: 12px;
+                color: #666;
+                margin-top: 4px;
+            }
+
+            .bandcamp-stat .stat-number {
+                color: #ff6b35;
+            }
+
+            .controls {
+                padding: 12px;
+                background: white;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .button {
+                background: #ff6b35;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+                margin-right: 8px;
+                margin-bottom: 8px;
+            }
+
+            .button:hover {
+                background: #e55325;
+            }
+
+            .button.outline {
+                background: transparent;
+                color: #ff6b35;
+                border: 1px solid #ff6b35;
+            }
+
+            .button.outline:hover {
+                background: #ff6b35;
+                color: white;
+            }
+
+            .links-container {
+                max-height: 300px;
+                overflow-y: auto;
+                background: white;
+            }
+
+            .link-item {
+                padding: 12px 16px;
+                border-bottom: 1px solid #eee;
+                cursor: pointer;
+                position: relative;
+            }
+
+            .link-item:hover {
+                background: #f5f5f5;
+            }
+
+            .link-item.bandcamp {
+                border-left: 4px solid #ff6b35;
+            }
+
+            .link-title {
+                font-weight: 600;
+                color: #333;
+                margin-bottom: 4px;
+                font-size: 14px;
+            }
+
+            .link-subtitle {
+                color: #666;
+                font-size: 12px;
+                margin-bottom: 4px;
+            }
+
+            .link-url {
+                color: #888;
+                font-size: 11px;
+                word-break: break-all;
+            }
+
+            .link-domain {
+                display: inline-block;
+                background: #e0e0e0;
+                color: #666;
+                padding: 2px 6px;
+                border-radius: 3px;
+                font-size: 10px;
+                margin-top: 4px;
+            }
+
+            .link-item.bandcamp .link-domain {
+                background: #ff6b35;
+                color: white;
+            }
+
+            .empty-state {
+                text-align: center;
+                padding: 40px 20px;
+                color: #666;
+            }
+
+            .empty-state-icon {
+                font-size: 48px;
+                margin-bottom: 16px;
+            }
+
+            .loading {
+                text-align: center;
+                padding: 40px 20px;
+                color: #666;
+            }
+
+            .filter-tabs {
+                display: flex;
+                background: white;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .filter-tab {
+                flex: 1;
+                padding: 10px;
+                text-align: center;
+                cursor: pointer;
+                border: none;
+                background: transparent;
+                color: #666;
+                font-size: 12px;
+            }
+
+            .filter-tab.active {
+                background: #ff6b35;
+                color: white;
+            }
+
+            .filter-tab:hover:not(.active) {
+                background: #f0f0f0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">🎵 Bandcamp Link Finder</div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="bandcampLinks">0</div>
+                <div class="stat-label">Bandcamp Links</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="button" id="refreshBtn">🔄 Refresh</button>
+            <button class="button" id="highlightBtn">✨ Highlight</button>
+            <button class="button outline" id="exportBtn">📁 Export</button>
+            <button class="button" id="removeDungeonSynthBtn">
+                🧹 Remove Dungeon Synth
+            </button>
+        </div>
+
+        <div class="links-container" id="linksContainer">
+            <div class="loading">
+                <div>🎵 Scanning for Bandcamp links...</div>
+            </div>
+        </div>
+
+        <script src="popup.js"></script>
+    </body>
+</html>

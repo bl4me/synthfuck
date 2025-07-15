@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Finder Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .section h2 {
+            color: #333;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+
+        .bandcamp-section {
+            background: #fff5f0;
+            border-color: #FF6B35;
+        }
+
+        .bandcamp-section h2 {
+            border-color: #FF6B35;
+        }
+
+        .link-example {
+            margin: 15px 0;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        .link-example a {
+            display: block;
+            text-decoration: none;
+            color: #333;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+
+        .link-example a:hover {
+            background: #f0f0f0;
+        }
+
+        .link-example a strong {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .link-example a span {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .dynamic-links {
+            margin-top: 20px;
+        }
+
+        .add-link-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+
+        .add-link-btn:hover {
+            background: #45a049;
+        }
+
+        .instructions {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Link Finder Extension Test Page</h1>
+
+    <div class="instructions">
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Install the Link Finder extension in Firefox</li>
+            <li>Load this page to test the extension</li>
+            <li>Click the extension icon to see the popup interface</li>
+            <li>Notice how different link types are highlighted</li>
+            <li>Try the search and filter features</li>
+        </ol>
+    </div>
+
+    <div class="section bandcamp-section">
+        <h2>🎵 Bandcamp Links</h2>
+        <p>These links should be highlighted in orange with music note badges:</p>
+
+        <div class="link-example">
+            <a data-v-e0760e9e="" href="https://agriculturemusic.bandcamp.com/album/the-spiritual-sound?from=discover_page" target="_blank">
+                <strong data-v-e0760e9e="">The Spiritual Sound</strong>
+                <span data-v-e0760e9e="">by Agriculture</span>
+            </a>
+        </div>
+
+        <div class="link-example">
+            <a href="https://sunsetcorp.bandcamp.com/album/neon-dreams" target="_blank">
+                <strong>Neon Dreams</strong>
+                <span>by Sunset Corp</span>
+            </a>
+        </div>
+
+        <div class="link-example">
+            <a href="https://retrowave.bandcamp.com/track/midnight-city" target="_blank">
+                <strong>Midnight City</strong>
+                <span>by RetroWave</span>
+            </a>
+        </div>
+
+        <div class="link-example">
+            <a href="https://chillhop.bandcamp.com/album/summer-vibes-2024" target="_blank">
+                <strong>Summer Vibes 2024</strong>
+                <span>by Various Artists</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🔗 Regular Links</h2>
+        <p>These links should be highlighted in green:</p>
+
+        <div class="link-example">
+            <a href="https://www.spotify.com/playlist/chill-vibes" target="_blank">
+                <strong>Chill Vibes Playlist</strong>
+                <span>Spotify</span>
+            </a>
+        </div>
+
+        <div class="link-example">
+            <a href="https://soundcloud.com/user/track/amazing-song" target="_blank">
+                <strong>Amazing Song</strong>
+                <span>SoundCloud</span>
+            </a>
+        </div>
+
+        <div class="link-example">
+            <a href="https://youtube.com/watch?v=example" target="_blank">
+                <strong>Music Video</strong>
+                <span>YouTube</span>
+            </a>
+        </div>
+
+        <div class="link-example">
+            <a href="https://example.com/article" target="_blank">
+                <strong>Interesting Article</strong>
+                <span>Example.com</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🎯 Different Link Formats</h2>
+        <p>Testing various link structures:</p>
+
+        <div class="link-example">
+            <a href="https://musician.bandcamp.com/album/test-album">
+                <div>
+                    <strong>Album with Div Structure</strong>
+                    <span>by Test Artist</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="link-example">
+            <a href="https://newlabel.bandcamp.com/releases" target="_blank" rel="noopener">
+                <h3>New Label Releases</h3>
+                <p>Check out the latest from New Label</p>
+            </a>
+        </div>
+
+        <div class="link-example">
+            <a href="https://artist.bandcamp.com" class="artist-link" data-artist="artist-name">
+                Artist Profile Page
+            </a>
+        </div>
+
+        <div class="link-example">
+            <a href="/relative-link" onclick="return false;">
+                <strong>Relative Link</strong>
+                <span>This won't work but should be detected</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>⚡ Dynamic Links</h2>
+        <p>Test dynamic link addition:</p>
+
+        <div class="dynamic-links" id="dynamicLinks">
+            <p>Click the buttons below to add links dynamically:</p>
+            <button class="add-link-btn" onclick="addBandcampLink()">Add Bandcamp Link</button>
+            <button class="add-link-btn" onclick="addRegularLink()">Add Regular Link</button>
+            <button class="add-link-btn" onclick="removeLastLink()">Remove Last Link</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📊 Link Statistics</h2>
+        <p>Expected results for this page:</p>
+        <ul>
+            <li><strong>Total Links:</strong> ~15-20 (depends on dynamic additions)</li>
+            <li><strong>Bandcamp Links:</strong> ~7-10</li>
+            <li><strong>Other Links:</strong> ~5-10</li>
+        </ul>
+    </div>
+
+    <script>
+        let linkCounter = 0;
+
+        function addBandcampLink() {
+            linkCounter++;
+            const container = document.getElementById('dynamicLinks');
+            const linkDiv = document.createElement('div');
+            linkDiv.className = 'link-example';
+            linkDiv.innerHTML = `
+                <a href="https://dynamic${linkCounter}.bandcamp.com/album/test-album-${linkCounter}" target="_blank">
+                    <strong>Dynamic Album ${linkCounter}</strong>
+                    <span>by Dynamic Artist ${linkCounter}</span>
+                </a>
+            `;
+            container.appendChild(linkDiv);
+        }
+
+        function addRegularLink() {
+            linkCounter++;
+            const container = document.getElementById('dynamicLinks');
+            const linkDiv = document.createElement('div');
+            linkDiv.className = 'link-example';
+            linkDiv.innerHTML = `
+                <a href="https://example${linkCounter}.com/page" target="_blank">
+                    <strong>Dynamic Link ${linkCounter}</strong>
+                    <span>Example${linkCounter}.com</span>
+                </a>
+            `;
+            container.appendChild(linkDiv);
+        }
+
+        function removeLastLink() {
+            const container = document.getElementById('dynamicLinks');
+            const linkExamples = container.querySelectorAll('.link-example');
+            if (linkExamples.length > 0) {
+                linkExamples[linkExamples.length - 1].remove();
+            }
+        }
+
+        // Add some links after page loads to test dynamic detection
+        setTimeout(() => {
+            addBandcampLink();
+        }, 2000);
+
+        setTimeout(() => {
+            addRegularLink();
+        }, 4000);
+    </script>
+</body>
+</html>

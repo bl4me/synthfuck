@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Simple Extension Test</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                line-height: 1.6;
+            }
+            .test-section {
+                margin: 20px 0;
+                padding: 15px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+            .test-link {
+                display: block;
+                margin: 10px 0;
+                padding: 10px;
+                background: #f9f9f9;
+                text-decoration: none;
+                color: #333;
+                border-radius: 3px;
+            }
+            .test-link:hover {
+                background: #f0f0f0;
+            }
+            .status {
+                margin: 10px 0;
+                padding: 10px;
+                background: #e8f5e8;
+                border-radius: 3px;
+                font-family: monospace;
+            }
+            .instruction {
+                background: #fff3cd;
+                padding: 15px;
+                border-radius: 5px;
+                margin-bottom: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>🔍 Simple Extension Test</h1>
+
+        <div class="instruction">
+            <h3>Instructions:</h3>
+            <ol>
+                <li>Install the Link Finder extension</li>
+                <li>Refresh this page</li>
+                <li>Links should be highlighted automatically</li>
+                <li>Click the extension icon to see the popup</li>
+                <li>Check the status section below</li>
+            </ol>
+        </div>
+
+        <div class="test-section">
+            <h2>Test Links</h2>
+
+            <a
+                href="https://agriculture.bandcamp.com/album/the-spiritual-sound"
+                class="test-link"
+            >
+                <strong>The Spiritual Sound</strong>
+                <span>by Agriculture (Bandcamp)</span>
+            </a>
+
+            <a
+                href="https://testband.bandcamp.com/track/example-track"
+                class="test-link"
+            >
+                <strong>Example Track</strong>
+                <span>by Test Band (Bandcamp)</span>
+            </a>
+
+            <a href="https://google.com" class="test-link">
+                <strong>Google</strong>
+                <span>Search Engine</span>
+            </a>
+
+            <a href="https://github.com" class="test-link">
+                <strong>GitHub</strong>
+                <span>Code Repository</span>
+            </a>
+        </div>
+
+        <div class="test-section">
+            <h2>Extension Status</h2>
+            <div id="status" class="status">Checking extension status...</div>
+            <button onclick="checkStatus()">Check Status</button>
+            <button onclick="manualTest()">Manual Test</button>
+            <button onclick="testMessagePassing()">Test Message Passing</button>
+            <button onclick="debugContentScript()">Debug Content Script</button>
+        </div>
+
+        <script>
+            function updateStatus(message) {
+                document.getElementById("status").textContent = message;
+                console.log("[Test Page]", message);
+            }
+
+            function checkStatus() {
+                updateStatus("Checking extension status...");
+
+                // Check if content script is loaded
+                if (typeof window.linkFinder !== "undefined") {
+                    updateStatus("✓ Extension loaded successfully");
+                    const links = window.linkFinder.getLinks();
+                    const bandcampLinks = window.linkFinder.getBandcampLinks();
+                    updateStatus(
+                        `✓ Found ${links.length} links (${bandcampLinks.length} Bandcamp)`,
+                    );
+                } else {
+                    updateStatus(
+                        "✗ Extension not loaded - try refreshing the page",
+                    );
+                }
+            }
+
+            function manualTest() {
+                if (typeof window.linkFinder === "undefined") {
+                    updateStatus("✗ Extension not available");
+                    return;
+                }
+
+                updateStatus("Running manual test...");
+                window.linkFinder.scanForLinks();
+
+                setTimeout(() => {
+                    const links = window.linkFinder.getLinks();
+                    const bandcampLinks = window.linkFinder.getBandcampLinks();
+                    updateStatus(
+                        `Manual test complete: ${links.length} links (${bandcampLinks.length} Bandcamp)`,
+                    );
+                }, 500);
+            }
+
+            function testMessagePassing() {
+                updateStatus("Testing message passing...");
+
+                // Check if browser APIs are available
+                if (typeof browser === "undefined" || !browser.runtime) {
+                    updateStatus(
+                        "✗ Browser APIs not available (this is normal for content scripts)",
+                    );
+                    return;
+                }
+
+                // This won't work from content script context, but let's try anyway
+                updateStatus(
+                    "Browser APIs available, but message passing test needs popup context",
+                );
+            }
+
+            function debugContentScript() {
+                updateStatus("Debugging content script...");
+
+                const debug = {
+                    hasLinkFinder: typeof window.linkFinder !== "undefined",
+                    hasLinkFinderClass: typeof LinkFinder !== "undefined",
+                    hasBrowser: typeof browser !== "undefined",
+                    hasRuntime:
+                        typeof browser !== "undefined" && browser.runtime,
+                    totalLinks: document.querySelectorAll("a[href]").length,
+                    linkFinderLinks: window.linkFinder
+                        ? window.linkFinder.getLinks().length
+                        : 0,
+                };
+
+                updateStatus(`Debug info: ${JSON.stringify(debug, null, 2)}`);
+                console.log("Content script debug info:", debug);
+            }
+
+            // Auto-check status after page loads
+            setTimeout(() => {
+                checkStatus();
+            }, 2000);
+
+            // Check periodically and more frequently
+            setInterval(() => {
+                if (typeof window.linkFinder !== "undefined") {
+                    const statusEl = document.getElementById("status");
+                    if (statusEl.textContent.includes("not loaded")) {
+                        checkStatus();
+                    }
+                } else {
+                    // Content script not loaded yet
+                    const statusEl = document.getElementById("status");
+                    if (!statusEl.textContent.includes("not loaded")) {
+                        updateStatus(
+                            "✗ Extension not loaded - waiting for content script...",
+                        );
+                    }
+                }
+            }, 2000);
+
+            // Add console logging for debugging
+            console.log("Simple test page loaded");
+            console.log("Available at load:", {
+                linkFinder: typeof window.linkFinder,
+                LinkFinder: typeof LinkFinder,
+                browser: typeof browser,
+            });
+        </script>
+    </body>
+</html>
