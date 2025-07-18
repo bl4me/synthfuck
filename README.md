@@ -37,6 +37,12 @@ A Firefox extension that automatically removes dungeon synth albums from Bandcam
 - `storage`: To save extension settings and statistics
 - `https://*.bandcamp.com/*`: To fetch album pages and check tags
 
+## Build
+In the extension folder
+```
+zip -r -FS ../synthfuck.zip * --exclude '*.git*'
+```
+
 ## Usage
 
 The extension works completely automatically:

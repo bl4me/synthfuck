@@ -9,7 +9,7 @@ const CONFIG = {
     retryDelay: 5000, // 5 seconds (increased)
     maxRetries: 2, // Reduced retries
     rateLimitDelay: 30000, // 30 seconds after rate limit
-    requestDelay: 1000, // 1 second between requests
+    requestDelay: 2000, // 2 second between requests
 };
 
 // Statistics tracking
