@@ -42,6 +42,7 @@ In the extension folder
 ```
 zip -r -FS ../synthfuck.zip * --exclude '*.git*'
 ```
+Tools -> Extensions -> Install Add-on from file, load the .zip archive
 
 ## Usage
 
