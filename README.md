@@ -40,9 +40,9 @@ A Firefox extension that automatically removes dungeon synth albums from Bandcam
 ## Build
 In the extension folder
 ```
-zip -r -FS ../synthfuck.zip * --exclude '*.git*'
+ rm ../synthfuck.zip ;  zip -r -FS ../synthfuck.zip * --exclude '*.git' --exclude proxychains.conf --exclude '*.md'
 ```
-Tools -> Extensions -> Install Add-on from file, load the .zip archive
+about:debugging#/runtime/this-firefox , Load Temporary Add-on, select manifest.json
 
 ## Usage
 
