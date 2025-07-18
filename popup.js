@@ -1,5 +1,4 @@
 // Bandcamp Link Finder Extension - Popup Script
-// Simplified version for Bandcamp discover pages
 
 class BandcampLinkPopup {
     constructor() {
@@ -13,35 +12,16 @@ class BandcampLinkPopup {
     }
 
     setupEventListeners() {
-        // Refresh button
-        document.getElementById("refreshBtn").addEventListener("click", () => {
-            this.loadLinks();
-        });
-
-        // Highlight button
-        document
-            .getElementById("highlightBtn")
-            .addEventListener("click", () => {
-                this.toggleHighlights();
-            });
-
-        // Export button
-        document.getElementById("exportBtn").addEventListener("click", () => {
-            this.exportLinks();
-        });
-
-        // Remove dungeon synth button
-        document
-            .getElementById("removeDungeonSynthBtn")
-            .addEventListener("click", () => {
-                this.removeDungeonSynth();
-            });
+        document.getElementById("refreshBtn").addEventListener("click", () => this.loadLinks());
+        document.getElementById("highlightBtn").addEventListener("click", () => this.toggleHighlights());
+        document.getElementById("exportBtn").addEventListener("click", () => this.exportLinks());
+        document.getElementById("removeDungeonSynthBtn").addEventListener("click", () => this.removeDungeonSynth());
     }
 
     async loadLinks() {
         try {
             this.showLoading();
-            console.log("🎵 Loading Bandcamp links...");
+            console.log("Loading Bandcamp links...");
 
             // Get active tab
             const tabs = await browser.tabs.query({
@@ -49,7 +29,7 @@ class BandcampLinkPopup {
                 currentWindow: true,
             });
             const activeTab = tabs[0];
-            console.log("🎯 Active tab:", activeTab.url);
+            console.log("Active tab:", activeTab.url);
 
             // Check if we're on a Bandcamp page
             if (!activeTab.url.includes("bandcamp.com")) {
@@ -58,7 +38,7 @@ class BandcampLinkPopup {
             }
 
             // Wait for manifest-injected content script to be ready
-            console.log("⏳ Waiting for content script to be ready...");
+            console.log("Waiting for content script to be ready...");
             await new Promise((resolve) => setTimeout(resolve, 2000));
 
             // Get links directly through executeScript instead of sendMessage
@@ -71,7 +51,7 @@ class BandcampLinkPopup {
                             // Execute the findBandcampLinks function directly but return only serializable data
                             if (typeof window.findBandcampLinks === 'function') {
                                 const links = window.findBandcampLinks();
-                                console.log('🎯 Direct execution found', links.length, 'links');
+                                console.log('Direct execution found', links.length, 'links');
                                 // Return only serializable data (no DOM elements)
                                 links.map(link => ({
                                     href: link.href,
@@ -82,7 +62,7 @@ class BandcampLinkPopup {
                                     isBandcamp: link.isBandcamp
                                 }));
                             } else {
-                                console.log('❌ findBandcampLinks function not found');
+                                console.log('findBandcampLinks function not found');
                                 [];
                             }
                         `,
@@ -90,24 +70,24 @@ class BandcampLinkPopup {
                 );
 
                 const links = linksResult[0] || [];
-                console.log("📥 Direct result:", links.length, "links");
+                console.log("Direct result:", links.length, "links");
 
                 if (links.length > 0) {
                     this.currentLinks = links;
                     this.updateStats();
                     this.displayLinks();
-                    console.log("✅ Found", links.length, "Bandcamp links");
+                    console.log("Found", links.length, "Bandcamp links");
                 } else {
                     this.showEmptyState();
                 }
             } catch (directError) {
-                console.error("❌ Direct execution error:", directError);
+                console.error("Direct execution error:", directError);
                 throw new Error(
                     "Could not get links directly from content script",
                 );
             }
         } catch (error) {
-            console.error("❌ Error loading links:", error);
+            console.error("Error loading links:", error);
             this.showError(
                 "Failed to load links. Make sure you're on a Bandcamp page and try refreshing.",
             );
@@ -128,7 +108,7 @@ class BandcampLinkPopup {
             bandcampElement.textContent = bandcampLinks;
         }
 
-        console.log("📊 Stats updated:", { totalLinks, bandcampLinks });
+        console.log("Stats updated:", { totalLinks, bandcampLinks });
     }
 
     displayLinks() {
@@ -194,7 +174,7 @@ class BandcampLinkPopup {
             await browser.tabs.sendMessage(activeTab.id, {
                 action: "toggleHighlights",
             });
-            console.log("🔶 Highlights toggled");
+            console.log("Highlights toggled");
         } catch (error) {
             console.error("Error toggling highlights:", error);
         }
@@ -230,7 +210,7 @@ class BandcampLinkPopup {
 
     async removeDungeonSynth() {
         try {
-            this.showLoading("🧹 Removing dungeon synth albums...");
+            this.showLoading("Removing dungeon synth albums...");
 
             const tabs = await browser.tabs.query({
                 active: true,
@@ -244,16 +224,16 @@ class BandcampLinkPopup {
 
             if (response && response.success) {
                 alert(
-                    `✅ Removed ${response.removedCount} dungeon synth albums!`,
+                    alert(`Removed ${response.removedCount} dungeon synth albums!`);
                 );
                 // Refresh the link list
                 this.loadLinks();
             } else {
-                alert("❌ Failed to remove dungeon synth albums");
+                alert("Failed to remove dungeon synth albums");
             }
         } catch (error) {
             console.error("Error removing dungeon synth albums:", error);
-            alert("❌ Error removing dungeon synth albums");
+            alert("Error removing dungeon synth albums");
         }
     }
 
@@ -270,7 +250,7 @@ class BandcampLinkPopup {
         const container = document.getElementById("linksContainer");
         container.innerHTML = `
             <div class="empty-state">
-                <div class="empty-state-icon">🎵</div>
+                <div class="empty-state-icon">🔍</div>
                 <div>No Bandcamp links found on this page</div>
             </div>
         `;
@@ -280,7 +260,7 @@ class BandcampLinkPopup {
         const container = document.getElementById("linksContainer");
         container.innerHTML = `
             <div class="empty-state">
-                <div class="empty-state-icon">⚠️</div>
+                <div class="empty-state-icon">❗</div>
                 <div>${message}</div>
             </div>
         `;
@@ -295,8 +275,8 @@ class BandcampLinkPopup {
 
 // Initialize popup when DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("🎵 Bandcamp popup loading...");
+    console.log("Bandcamp popup loading...");
     new BandcampLinkPopup();
 });
 
-console.log("🎵 Bandcamp popup script loaded");
+console.log("Bandcamp popup script loaded");
